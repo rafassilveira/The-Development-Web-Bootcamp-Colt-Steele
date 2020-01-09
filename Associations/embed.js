@@ -1,76 +1,69 @@
-var mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/blog_demo");
+const mongoose = require("mongoose");
 
-
-var postSchema = new mongoose.Schema({
-   title:String,
-   content:String
-    
+mongoose.connect("mongodb://localhost:27017/association", {
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useNewUrlParser: true
+  // mongoose.Promise = global.Promise;
 });
 
-var Post = mongoose.model("Post", postSchema);
-
-//User - Email, name
-
-var userSchema = new mongoose.Schema({
-    email: String,
-    name: String,
-    posts: [postSchema]
+const postSchema = new mongoose.Schema({
+  title: String,
+  content: String
 });
-var User = mongoose.model("User", userSchema);
+Post = mongoose.model("Post", postSchema);
 
-// var newUser = new User({
-//     email:"rafael@rafael.com",
-//     name:"Rafael Silveira"
+const userSchema = new mongoose.Schema({
+  email: String,
+  name: String,
+  posts: [postSchema]
+});
+
+const User = mongoose.model("User", userSchema);
+
+// const newUser = new User({
+//   email: "rafael2@rafael.com",
+//   name: "rafael silveira2"
 // });
 
 // newUser.posts.push({
-//     title:"how to bre ",
-//     content:"just kidding"
-    
-// })
-
-// newUser.save(function(err, user){
-//     if(err){
-//         console.log(err);
-//     } else{
-//         console.log(user);
-//     }
-// })
-
-// var newPost = new Post({
-//     title:"Reflections on Apples",
-//     content:"They are delicius"
-    
+//   title: "javascrip",
+//   content: "es6"
 // });
 
-// newPost.save(function(err, post){
-//     if(err){
-//         console.log(err);
-//     }else{
-//         console.log(err)
-        
-//     }
+// newUser.save((err, user) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(user);
+//   }
+// });
+// const newPost = new Post({
+//   title: "Donuts",
+//   content: "are delicious"
 // });
 
-//POST Title, content
-
-
-User.findOne({ name: "Rafael Silveira"}, function(err, user){
-    if(err){
-        // console.log(err);
-    } else {
-        user.posts.push({
-            title: "3 Thing I really Hate",
-            content:"Voldemort Voldemort Voldemort"
-        });
-        user.save(function(err, user){
-            if(err){
-                console.log(err);
-            } else {
-                console.log(user);
-            }
-        });
-    }
-    
+// newPost.save((err, post) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(post);
+//   }
+// });
+User.findOne({ name: "rafael silveira" }, (err, user) => {
+  if (err) {
+    // console.log(err);
+  } else {
+    user.posts.push({
+      title: "Coffee",
+      content: "are the best"
+    });
+    user.save((err, user) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(user);
+      }
+    });
+  }
 });

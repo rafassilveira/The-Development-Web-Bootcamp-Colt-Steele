@@ -1,8 +1,15 @@
-var mongoose = require("mongoose");
-
-// POST - title, content
-var postSchema = new mongoose.Schema({
-   title: String,
-   content: String
+const mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost:27017/references", {
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useNewUrlParser: true
+  // mongoose.Promise = global.Promise;
 });
-module.exports = mongoose.model("Post", postSchema);
+
+const postSchema = new mongoose.Schema({
+  title: String,
+  content: String
+});
+Post = mongoose.model("Post", postSchema);
+
+module.exports = Post;

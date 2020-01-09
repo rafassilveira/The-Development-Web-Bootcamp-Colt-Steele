@@ -1,0 +1,38 @@
+# Vamos trabalhar com associações de dados do BD
+- Isso significa que vamos trabalhar com dados
+  - 1:n Um para muitos
+  - n:n Muitos para muitos
+  - 1:1 Um para um
+
+## Vamos criar um novo arquivo chamado embed.js 
+- [x]  Vamos instalar e dar require nesse arquivo no mongoose
+- [x]  connect
+- Definir modes
+  -  User
+    - [x]  email
+    - [x]  name
+    - [ ]  posts:[postSchema]
+    - [x]   definir schema
+  - Post
+    - Tem que ser declarado primeiro para que o User,
+    - consiga ler os posts
+    - [x]  title
+    - [x]   content
+    - [x]   definirschema
+    - [ ]   
+## Refercng datas
+- [x] criar umarquivo chamado references.js
+- [x] copiar tudo do ember.js
+- [x] mudar nome bd
+- [x] alterar  o posts do user para objeto
+- [x] Criar post e user
+- [x] Relacionar os posts com os users
+
+## Module.exports
+- Vamos refatorar nosso código, usando o modulo exports
+- Para isso vamos dividir e importar e expotar nosso arquivos
+- a principal vantagem é deixar nosso codigo mais modularizado e reutilizável
+- [x] criar pasta model
+- [x] separar post e user
+- [x] require mongoose nos arquivos
+- [x] exports e require
