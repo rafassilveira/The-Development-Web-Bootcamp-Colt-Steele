@@ -1,0 +1,28 @@
+<%-include('../views/partials/header')%>
+
+<div class="ui main text container segment">
+  <!-- Esse blog vem do blogFound lá da rota show  -->
+  <div class="ui huge header">
+    <%= blog.title %>
+  </div>
+  <div class="ui top attached ">
+    <div class="item">
+      <img src="<%= blog.image %>" alt="" class="ui centered rouded image">
+      <div class="content">
+        <span><%=blog.created.toDateString()%></span>
+      </div>
+      <div class="description">
+        <p><%= blog.body %></p>
+      </div>
+
+    </div>
+  </div>
+  <form action="/blogs/<%=blog._id%>?_method=DELETE" method="POST">
+    <button class="ui red basic button">delete</button>
+    <a href="/blogs/<%= blog._id%>/edit" class="ui orange basic button">edit</a>
+  </form>
+
+</div>
+<a href="/" class="ui violet basic button">Go back</a>
+
+<%-include('../views/partials/footer')%>

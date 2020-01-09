@@ -1,0 +1,23 @@
+<% include ./partials/header %>
+<!--Classes do semanti ui -->
+<div class="ui main text container segment">
+    <div class="ui huge header">New Blog</div>
+    <!--create vai para /blogs com metodo post -->
+    <form class="ui form" action="/blogs" method="POST">
+        <div class="field">
+            <label>Title</label>
+            <input type="text" name="blog[title]" placeholder="title">
+        </div>
+          <div class="field">
+            <label>image</label>
+            <input type="text" name="blog[image]" placeholder="image">
+        </div>
+          <div class="field">
+            <label>Blog content</label>
+            <textarea name="blog[body]"> </textarea>
+        </div>
+        <input class="ui black big basic button" type="submit">
+    </form>
+</div>
+
+<% include ./partials/footer %>

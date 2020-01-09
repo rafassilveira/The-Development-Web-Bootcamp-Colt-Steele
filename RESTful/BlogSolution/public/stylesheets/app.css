@@ -1,0 +1,43 @@
+html {
+  height: 100%;
+}
+
+i.icon {
+  font-size: 2em;
+  color: white;
+}
+
+
+.container.main {
+  margin-top: 7.0em;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+
+
+}
+
+.flex-container {
+  flex: 1;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 10px;
+  padding-top: 1rem;
+  color: black;
+  height: 60px;
+  width: 100%;
+  color: white;
+  background-color: black;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: normal;
+}
+
+i#keyboard {
+  font-size: 1.2em;
+  text-align: center;
+}

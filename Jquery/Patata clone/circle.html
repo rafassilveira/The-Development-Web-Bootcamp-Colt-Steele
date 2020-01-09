@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Circle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="circle.css" />
+    <script src="paper-full.js"></script>
+    <script type="text/paperscript" canvas="myCanvas">
+
+        var x =0;
+        var y =0;
+        for (var i=0;i<=10;i++){
+            x=x+100;
+            
+            var firstPath = new Path.Circle({
+            center: [x,100],
+            radius: 10
+        });
+
+        firstPath.strokeColor = 'black';
+
+        firstPath.fillColor = 'purple';
+        }
+    	
+
+
+        
+        
+        
+    </script>
+</head>
+<body>
+    <canvas id="myCanvas" resize></canvas>
+    
+</body>
+</html>
