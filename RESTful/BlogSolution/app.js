@@ -7,26 +7,12 @@ const expressSanitizer = require("express-sanitizer");
 const app = express();
 
 // APP CONFIG
-mongoose.connect('mongodb://127.0.0.1:27017/restful_blog_app', { useUnifiedTopology: true,
-  useCreateIndex: true,
-  useNewUrlParser: true});
-
-/*mongoose.connect("mongodb+srv://rafaelssilveira:151105rafa@cluster0-oqd3c.mongodb.net/test?retryWrites=true&w=majority", {
+mongoose.connect("mongodb://localhost:27017/blogSolution", {
   useUnifiedTopology: true,
   useCreateIndex: true,
   useNewUrlParser: true
   // mongoose.Promise = global.Promise;
-}).then(()=>{
-	console.log('Connect')
-}).catch(err=>{
-	console.log('ERROR:', err.message)
-});*/
-/*mongoose.connect("mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb", {
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useNewUrlParser: true
-  // mongoose.Promise = global.Promise;
-});*/
+});
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -62,7 +48,7 @@ app.get("/blogs/new", (req, res) => {
 });
 
 app.post("/blogs", (req, res) => {
-  //req.body.blog.body = req.sanitizer(req.body.blog.body);
+  req.body.blog.body = req.sanitizer(req.body.blog.body);
   // req.body.blog, é o objeto criado quando colocamos os dados no blog[****]
   // assim dessa forma ele retorna algo como{title:"algumacoisa",description:"alguma
   // coisa"}
@@ -104,7 +90,7 @@ app.get("/blogs/:id/edit", (req, res) => {
 //UPDATE ROUTE
 
 app.put("/blogs/:id", (req, res) => {
-  //req.body.blog.body = req.sanitizer(req.body.blog.body);
+  req.body.blog.body = req.sanitizer(req.body.blog.body);
   Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, updatedBlog) => {
     if (err) {
       res.redirect("/blogs");
