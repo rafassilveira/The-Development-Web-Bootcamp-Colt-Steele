@@ -24,19 +24,19 @@ app.get("/", (req, res) => {
   res.render("landing");
 });
 // INDEX - SHOW ALL DE CAMPGROUDNS
-app.get("/campgrounds", (req, res) => {
+app.get("/campgrounds/", (req, res) => {
   //mostrando todos os campgrounds
   Campground.find({}, (err, allCampgrounds) => {
     if (err) {
       console.log(err);
     } else {
       // enviando o array campgrounds como campgrounds
-      res.render("index", { campgrounds: allCampgrounds });
+      res.render("campgrounds/index", { campgrounds: allCampgrounds });
     }
   });
 });
 // CREATE-ADD TO CAMPGROUND TO DB
-app.post("/campgrounds", (req, res) => {
+app.post("/campgrounds/", (req, res) => {
   // pegando o name do formulario e armazenando na variavel name
   var name = req.body.name;
   // pegando a url da imagem do formulario e armazenando na variavel imagem
@@ -51,14 +51,14 @@ app.post("/campgrounds", (req, res) => {
       console.log(err);
     } else {
       // depois de enviar redireciona para a pagina campgrounds
-      res.redirect("/campgrounds");
+      res.redirect("/campgrounds/");
     }
   });
 });
 
 // NEW - FORM TO CREATE NEW CAMPGROUND
 app.get("/campgrounds/new", (req, res) => {
-  res.render("new");
+  res.render("campgrounds/new");
 });
 
 //SHOW show more info about one campground
@@ -74,10 +74,17 @@ app.get("/campgrounds/:id", (req, res) => {
       } else {
         console.log(foundCampground);
 
-        res.render("show", { campground: foundCampground });
+        res.render("campgrounds/show", { campground: foundCampground });
       }
     });
 });
+
+
+//----- Comments Route ---------\\
+
+app.get('/campgrounds/:id/comments/new', (req, res)=>{
+	res.send('Rá pegadinha do malanndro')
+})
 
 app.listen(3000, () => {
   console.log("rodando");
