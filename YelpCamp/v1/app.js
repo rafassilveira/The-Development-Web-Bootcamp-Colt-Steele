@@ -3,6 +3,9 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Campground = require("./models/campground");
+const seedDB = require("./seed");
+
+seedDB();
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {
   useUnifiedTopology: true,
@@ -10,25 +13,6 @@ mongoose.connect("mongodb://localhost:27017/yelp_camp", {
   useNewUrlParser: true
   // mongoose.Promise = global.Promise;
 });
-
-//SCHEMA SETUP
-
-// Campground.create(
-//   {
-//     name: "Itachi",
-//     image:
-//       "https://nerdhits.com.br/wp-content/uploads/2019/11/cats-6-750x410.jpg",
-//     description: "Irmao do Sasuke"
-//   },
-//   (err, campground) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log("Novo campground criado");
-//       console.log(campground);
-//     }
-//   }
-// );
 
 // Para que o express entenda o bovy-parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -71,22 +55,30 @@ app.post("/campgrounds", (req, res) => {
     }
   });
 });
+
 // NEW - FORM TO CREATE NEW CAMPGROUND
 app.get("/campgrounds/new", (req, res) => {
   res.render("new");
 });
+
 //SHOW show more info about one campground
 app.get("/campgrounds/:id", (req, res) => {
   // params:dado da url
   // foundCampground:campground que encontrou;
-  Campground.findById(req.params.id, (err, foundCampground) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("show", { campground: foundCampground });
-    }
-  });
+  // Usando o populate para add o comments
+  Campground.findById(req.params.id)
+    .populate("comments")
+    .exec((err, foundCampground) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(foundCampground);
+
+        res.render("show", { campground: foundCampground });
+      }
+    });
 });
+
 app.listen(3000, () => {
   console.log("rodando");
 });
