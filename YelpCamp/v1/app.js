@@ -8,7 +8,7 @@ const seedDB = require("./seed");
 
 seedDB();
 
-mongoose.connect("mongodb://localhost:27017/yelp_camp", {
+mongoose.connect("mongodb+srv://omnistack:omnistack@cluster0-se1sy.mongodb.net/yelpcamp?retryWrites=true&w=majority", {
   useUnifiedTopology: true,
   useCreateIndex: true,
   useNewUrlParser: true
