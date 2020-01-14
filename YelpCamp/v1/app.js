@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Campground = require("./models/campground");
-const Comment = require("./models/comment")
+const Comment = require("./models/comment");
 const seedDB = require("./seed");
 
 seedDB();
@@ -14,6 +14,8 @@ mongoose.connect("mongodb://localhost:27017/yelp_camp", {
   useNewUrlParser: true
   // mongoose.Promise = global.Promise;
 });
+// fazer que o express sirva essa pasta,ou seja que esteja sempre disponivel
+app.use(express.static(__dirname + "/public"));
 
 // Para que o express entenda o bovy-parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,6 +26,7 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render("landing");
 });
+
 // INDEX - SHOW ALL DE CAMPGROUDNS
 app.get("/campgrounds/", (req, res) => {
   //mostrando todos os campgrounds
@@ -31,11 +34,11 @@ app.get("/campgrounds/", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      // enviando o array campgrounds como campgrounds
       res.render("campgrounds/index", { campgrounds: allCampgrounds });
     }
   });
 });
+
 // CREATE-ADD TO CAMPGROUND TO DB
 app.post("/campgrounds/", (req, res) => {
   // pegando o name do formulario e armazenando na variavel name
@@ -44,7 +47,7 @@ app.post("/campgrounds/", (req, res) => {
   var image = req.body.image;
   var desc = req.body.description;
 
-  // armazenando em uma nova variavel o obejto contendo o nome e image anteriormente armazenado
+  // armazenando em uma nova variavel como objeto contendo o nome ,imagem e desc anteriormente armazenado
   var newCampground = { name: name, image: image, description: desc };
   // Create a new campground adn save to DB
   Campground.create(newCampground, (err, newcreated) => {
@@ -80,38 +83,36 @@ app.get("/campgrounds/:id", (req, res) => {
     });
 });
 
-
 //----- Comments Route ---------\\
 
-app.get('/campgrounds/:id/comments/new', (req, res)=>{
-	Campground.findById(req.params.id, (err, foundCampground)=>{
-		if(err){
-			console.log(err)
-		}else{
-			res.render('comments/new',{campground:foundCampground})
-		}
-	})
-	
-})
+app.get("/campgrounds/:id/comments/new", (req, res) => {
+  Campground.findById(req.params.id, (err, foundCampground) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("comments/new", { campground: foundCampground });
+    }
+  });
+});
 
-app.post('/campgrounds/:id/comments',(req,res)=>{
-	Campground.findById(req.params.id,(err,campground)=>{
-		if (err){
-			console.log(err)
-			res.redirect("/campgrounds");
-		}else{
-			Comment.create(req.body.comment,(err,comment)=>{
-				if(err){
-				   console.log(err)
-				   }else{
-				   		campground.comments.push(comment)
-					   campground.save();
-					   res.redirect('/campgrounds/'+ campground._id)
-				   }
-			})
-		}
-	})
-})
+app.post("/campgrounds/:id/comments", (req, res) => {
+  Campground.findById(req.params.id, (err, campground) => {
+    if (err) {
+      console.log(err);
+      res.redirect("/campgrounds");
+    } else {
+      Comment.create(req.body.comment, (err, comment) => {
+        if (err) {
+          console.log(err);
+        } else {
+          campground.comments.push(comment);
+          campground.save();
+          res.redirect("/campgrounds/" + campground._id);
+        }
+      });
+    }
+  });
+});
 
 app.listen(3000, () => {
   console.log("rodando");
