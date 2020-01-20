@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "app.js",
   "license": "MIT",
-	"scripts":{
-	"start":"nodemon ../app.js"
-},
-  
+  "scripts": {
+    "start": "nodemon ../app.js"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "ejs": "^3.0.1",
