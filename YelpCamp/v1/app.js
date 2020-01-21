@@ -2,18 +2,24 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 const Campground = require("./models/campground");
 const Comment = require("./models/comment");
+const User = require("./models/user");
 const seedDB = require("./seed");
 
 seedDB();
 
-mongoose.connect("mongodb+srv://omnistack:omnistack@cluster0-se1sy.mongodb.net/yelpcamp?retryWrites=true&w=majority", {
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useNewUrlParser: true
-  // mongoose.Promise = global.Promise;
-});
+mongoose.connect(
+  "mongodb+srv://omnistack:omnistack@cluster0-se1sy.mongodb.net/yelpcamp?retryWrites=true&w=majority",
+  {
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useNewUrlParser: true
+    // mongoose.Promise = global.Promise;
+  }
+);
 // fazer que o express sirva essa pasta,ou seja que esteja sempre disponivel
 app.use(express.static(__dirname + "/public"));
 
