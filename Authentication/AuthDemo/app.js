@@ -1,8 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const User = require("./models/user");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const User = require("./models/user");
 const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
 
@@ -21,7 +21,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   require("express-session")({
-    secret: "Bula the best dog",
+    secret: "Rusty is the best and cutest dog in the world",
     resave: false,
     saveUninitialized: false
   })
@@ -32,7 +32,7 @@ app.use(passport.session());
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser);
+passport.deserializeUser(User.deserializeUser());
 
 //ROUTES:
 
@@ -45,23 +45,20 @@ app.get("/secret", (req, res) => {
 
 //AUTH ROUTES
 
-app.get("/register", (req, res) => {
+app.get("/register", function(req, res) {
   res.render("register");
 });
-
 //handling user sign up
-app.post("/register", (req, res) => {
-  req.body.username;
-  req.body.password;
-  //We having passing password as second paramenter, because we'll hashing
+app.post("/register", function(req, res) {
   User.register(
     new User({ username: req.body.username }),
     req.body.password,
-    (err, user) => {
+    function(err, user) {
       if (err) {
         console.log(err);
         return res.render("register");
       }
+
       passport.authenticate("local")(req, res, function() {
         res.redirect("/secret");
       });
@@ -69,11 +66,13 @@ app.post("/register", (req, res) => {
   );
 });
 
-app.get("/login", (req, res) => {
+// LOGIN ROUTES
+//render login form
+app.get("/login", function(req, res) {
   res.render("login");
 });
-
 //login logic
+
 app.post(
   "/login",
   //middleware
@@ -81,7 +80,11 @@ app.post(
     successRedirect: "/secret",
     failureRedirect: "/login"
   }),
-  (req, res) => {}
+  function(req, res) {}
 );
 
+app.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
 app.listen(3333);
