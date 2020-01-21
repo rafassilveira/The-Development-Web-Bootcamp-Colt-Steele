@@ -9,7 +9,6 @@ const Comment = require("./models/comment");
 const User = require("./models/user");
 const seedDB = require("./seed");
 
-seedDB();
 
 mongoose.connect(
   "mongodb+srv://omnistack:omnistack@cluster0-se1sy.mongodb.net/yelpcamp?retryWrites=true&w=majority",
@@ -27,6 +26,22 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 // Dizendo para express que arquivos ejs não precisar digitar a extensão ejs
 app.set("view engine", "ejs");
+seedDB();
+
+
+//PASSPORT CONFIGURATION
+app.use(require('express-session')({
+	secret:"Bulma is the best dog,sorry!",
+	resave:false,
+	saveUninitialized:false
+	
+}))
+app.use(passport.initialize());
+app.use(passport.session())
+//Use.authenticate está dentro de User model
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 // rota inicial, rederiza o landing.ejs
 app.get("/", (req, res) => {
@@ -101,6 +116,7 @@ app.get("/campgrounds/:id/comments/new", (req, res) => {
   });
 });
 
+
 app.post("/campgrounds/:id/comments", (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
@@ -119,6 +135,26 @@ app.post("/campgrounds/:id/comments", (req, res) => {
     }
   });
 });
+
+//AUTH ROUTES
+app.get('/register',(req,res)=>{
+	res.render('register')	
+})
+
+//handling sign up logic
+app.post('/register', (req,res)=>{
+	let newUser = new User({username:req.body.username})
+	//resgister recebe 2 parametros, segundo é a senha que será gerado o hash
+	User.register(newUser,req.body.password,(err,user)=>{
+		if(err){
+			console.log(err)
+			return res.render('register')
+		}
+		passport.authenticate('local')(req,res,()=>{
+			res.redirect('campgrounds')
+		})
+	})
+})
 
 app.listen(3000, () => {
   console.log("rodando");
