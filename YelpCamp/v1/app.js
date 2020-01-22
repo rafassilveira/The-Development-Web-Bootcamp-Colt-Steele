@@ -42,6 +42,13 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// middleware para deixar disponiel o currentUser em todas as rotas
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 // rota inicial, rederiza o landing.ejs
 app.get("/", (req, res) => {
   res.render("landing");
@@ -115,8 +122,8 @@ app.get("/campgrounds/:id/comments/new", isLoggedIn, (req, res) => {
   });
 });
 
- // add isLoggedI tbm na post para que o usuario não tenha 
-  // acesso ao formulario dos comentários
+// add isLoggedI tbm na post para que o usuario não tenha
+// acesso ao formulario dos comentários
 app.post("/campgrounds/:id/comments", isLoggedIn, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
