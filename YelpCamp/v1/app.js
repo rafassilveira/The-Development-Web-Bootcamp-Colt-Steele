@@ -26,11 +26,13 @@ mongoose.connect(
 // fazer que o express sirva essa pasta,ou seja que esteja sempre disponivel
 app.use(express.static(__dirname + "/public"));
 
+seedDB();
+
 // Para que o express entenda o bovy-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 // Dizendo para express que arquivos ejs não precisar digitar a extensão ejs
 app.set("view engine", "ejs");
-seedDB();
+
 
 //PASSPORT CONFIGURATION
 app.use(
