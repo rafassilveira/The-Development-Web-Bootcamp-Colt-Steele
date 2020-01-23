@@ -1,9 +1,8 @@
 const express = require("express");
-// When true any req.params passed to the router will be merged into the router's req.params. 
+// When true any req.params passed to the router will be merged into the router's req.params.
 const router = express.Router({ mergeParams: true });
 const Campground = require("../models/campground");
 const Comment = require("../models/comment");
-
 
 //Comments New
 router.get("/new", isLoggedIn, (req, res) => {
@@ -15,7 +14,6 @@ router.get("/new", isLoggedIn, (req, res) => {
     }
   });
 });
-
 
 // Comments Create
 // add isLoggedI tbm na post para que o usuario não tenha
@@ -30,10 +28,12 @@ router.post("/", isLoggedIn, (req, res) => {
         if (err) {
           console.log(err);
         } else {
-			// add id and username to comment
-			comment.author.id = req.user._id
-			comment.author.username = req.user.username;
-			comment.save();
+          // add id and username to comment
+          // armazenando o id do usuario logado no models do comments author
+          comment.author.id = req.user._id;
+          comment.author.username = req.user.username;
+          //salvando no banco de dados
+          comment.save();
           campground.comments.push(comment);
           campground.save();
           res.redirect("/campgrounds/" + campground._id);

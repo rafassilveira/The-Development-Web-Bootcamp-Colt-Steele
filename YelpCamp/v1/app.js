@@ -8,6 +8,7 @@ const Campground = require("./models/campground");
 const Comment = require("./models/comment");
 const User = require("./models/user");
 const seedDB = require("./seed");
+const methodOverride = require("method-override");
 
 // requiring routes
 const commentRoutes = require("./routes/comments");
@@ -28,11 +29,12 @@ app.use(express.static(__dirname + "/public"));
 
 seedDB();
 
+app.use(methodOverride("_method"));
+
 // Para que o express entenda o bovy-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 // Dizendo para express que arquivos ejs não precisar digitar a extensão ejs
 app.set("view engine", "ejs");
-
 
 //PASSPORT CONFIGURATION
 app.use(
