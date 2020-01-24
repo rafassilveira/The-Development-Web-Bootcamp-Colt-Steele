@@ -41,5 +41,8 @@ viewsviews\campgroundsviews\campgrounds\edit.ejs;
   **Deleting Camgrounds**
     - [ ] Criando a rota delete
       - [ ] Usando o mentodo do mongoose findByIDAndRemove para deletar
+	  - Obs: tiveque usar o delete, porque é deprecado o Remo
     - [ ] Criando um form com action method delete abaixo do edit
-    - [ ] 
+  **Estilizando o botão delete **
+  	- [ ] inserindo um id no form- delete-form
+	- [ ] 

@@ -103,10 +103,11 @@ router.put("/:id", function(req, res) {
 
 //Destroy route
 router.delete("/:id", (req, res) => {
-  Campground.findByIdAndRemove(req.params.id, err => {
+  Campground.findByIdAndDelete(req.params.id, err => {
     if (err) {
       console.log(err);
     }
+	  res.redirect('/campgrounds')
   });
 });
 //middleware
