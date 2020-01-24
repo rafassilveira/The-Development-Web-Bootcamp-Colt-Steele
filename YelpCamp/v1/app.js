@@ -24,6 +24,7 @@ mongoose.connect(
     // mongoose.Promise = global.Promise;
   }
 );
+mongoose.set("useFindAndModify", false);
 // fazer que o express sirva essa pasta,ou seja que esteja sempre disponivel
 app.use(express.static(__dirname + "/public"));
 

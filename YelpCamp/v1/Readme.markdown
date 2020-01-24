@@ -37,3 +37,9 @@ viewsviews\campgroundsviews\campgrounds\edit.ejs;
   - [ ] Inserindo link para edit
   -
   - [ ] Fix \$set problme
+## 354. Campground Destroy
+  **Deleting Camgrounds**
+    - [ ] Criando a rota delete
+      - [ ] Usando o mentodo do mongoose findByIDAndRemove para deletar
+    - [ ] Criando um form com action method delete abaixo do edit
+    - [ ] 

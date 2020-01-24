@@ -100,6 +100,15 @@ router.put("/:id", function(req, res) {
     }
   );
 });
+
+//Destroy route
+router.delete("/:id", (req, res) => {
+  Campground.findByIdAndRemove(req.params.id, err => {
+    if (err) {
+      console.log(err);
+    }
+  });
+});
 //middleware
 function isLoggedIn(req, res, next) {
   // se o usuario estiver autenticado entao proseguirá
