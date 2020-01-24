@@ -84,16 +84,18 @@ router.get("/:id/edit", (req, res) => {
 
 // Update campground route
 
-router.put("/:id", (req, res) => {
+router.put("/:id", function(req, res) {
+  // find and update the correct campground
   Campground.findByIdAndUpdate(
     req.params.id,
     req.body.campground,
-    (err, updatedCampgroud) => {
+    { new: true },
+    function(err, updatedCampground) {
       if (err) {
-        console.log(err);
-        res.redirect("/campgrounds/");
+        res.redirect("/campgrounds");
       } else {
-        res.redirect("/campgrounds/:id");
+        //redirect somewhere(show page)
+        res.redirect("/campgrounds/" + req.params.id);
       }
     }
   );
