@@ -81,7 +81,7 @@ router.get("/:id/edit", checkCampgroundOwnership, (req, res) => {
 
 // Update campground route
 
-router.put("/:id", function(req, res) {
+router.put("/:id", checkCampgroundOwnership, function(req, res) {
   // find and update the correct campground
   Campground.findByIdAndUpdate(
     req.params.id,
@@ -99,7 +99,7 @@ router.put("/:id", function(req, res) {
 });
 
 //Destroy route
-router.delete("/:id", (req, res) => {
+router.delete("/:id", checkCampgroundOwnership, (req, res) => {
   Campground.findByIdAndDelete(req.params.id, err => {
     if (err) {
       console.log(err);
@@ -116,11 +116,15 @@ function isLoggedIn(req, res, next) {
   res.redirect("/login");
 }
 function checkCampgroundOwnership(req, res, next) {
+  //Verificar se o usuário está logado
   if (req.isAuthenticated()) {
     Campground.findById(req.params.id, (err, foundCampground) => {
       if (err) {
         res.redirect("back");
       } else {
+        //foundCampground.author.id.equals é um objeto
+        // req.user.id é uma string, por isso nao podemos somente ===
+        // temos que usar um metodo do mongoose para verificar se são iguais
         if (foundCampground.author.id.equals(req.user._id)) {
           next();
         } else {

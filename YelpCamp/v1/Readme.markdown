@@ -1,5 +1,9 @@
 ```javascript
 
+router.get("/:id/edit", checkCampgroundOwnership, (req, res) => {
+router.put("/:id", checkCampgroundOwnership, function(req, res) {
+router.delete("/:id", checkCampgroundOwnership, (req, res) => {
+
 ```
 
 # YelpCamp: Update and Destroy
@@ -33,7 +37,7 @@
     - [x] Criando um form com action method delete abaixo do edit
   **Estilizando o botão delete**
   	- [x] inserindo um id no form- delete-form
-## 356. Campground Authorization Part 1
+## 356. Campground Authorization 
   **Authorization**
   - Autorização é assegurar o que determinado usuário tem acesso,
   - Começando pela rota edit
@@ -44,7 +48,9 @@
     - obs:foundCampground.author.id === req.user._id
       - foundCampground.author.id.equals(req.user._id)
   - criando a função checkCampgroundOwnership para ummiddleware e ser reutilizado nas outras rotas
-  - 
+  - Escondendo os botões de EDIT adn DELETE
+    - arquivo show.ejs
+      - criando um if verificando o usuário dono é o mesmo que está logado
 
 
 
