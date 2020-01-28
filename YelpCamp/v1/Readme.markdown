@@ -51,7 +51,27 @@ router.delete("/:id", checkCampgroundOwnership, (req, res) => {
   - Escondendo os botões de EDIT adn DELETE
     - arquivo show.ejs
       - criando um if verificando o usuário dono é o mesmo que está logado
-
-
+## 358.Comment Edit and Update
+  **Editing Comments**
+    - Add Edit route for comments
+      - Lembrar que a rota está com curta porque já pré-definimos no app.js
+      - "/:comment_id/edit" 
+      - render commnets/edit
+    - Add Edit button
+      - show.ejs
+        - a.btn.btn-xs.btn-warning 
+        - href
+          - /campgrounds/
+            - campgrounds id
+            - /commentes/
+              - comments id
+              - /edit
+    - add template views/comments/edit.ejs
+      - copy from new.ejs
+      - incluir na action o /comments/ comments id 
+        - ?_method=PUT
+        - mudar o place holder por comment_text
+    - Add Update route
+    - 
 
 

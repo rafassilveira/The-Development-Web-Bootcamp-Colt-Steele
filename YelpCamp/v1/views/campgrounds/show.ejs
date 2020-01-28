@@ -44,6 +44,7 @@
             <p><strong><%= comment.author.username %></strong></p>
             <span class="pull-right">10 days ago</span>
             <p><%= comment.text %></p>
+			<a href="/campgrounds/<%=campground_id%>/comments/<%=comments_id%>/edit" class="btn btn-xs btn-warning"></a>    
           </div>
         </div>
         <% });%>

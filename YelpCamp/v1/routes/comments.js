@@ -42,6 +42,10 @@ router.post("/", isLoggedIn, (req, res) => {
     }
   });
 });
+
+router.get('/:comment_id/edit',(req,res)=>{
+	res.render('comments/edit')	
+})
 //middleware
 function isLoggedIn(req, res, next) {
   // se o usuario estiver autenticado entao proseguirá
