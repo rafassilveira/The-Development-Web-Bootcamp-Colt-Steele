@@ -1,17 +1,5 @@
 ```javascript
-routesroutes\camgrounds.js;
 
-router.get("/:id/edit", (req, res) => {
-  Campground.findById(req.params.id, (err, foundCampground) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("campgrounds/edit", { campground: foundCampground });
-    }
-  });
-});
-
-viewsviews\campgroundsviews\campgrounds\edit.ejs;
 ```
 
 # YelpCamp: Update and Destroy
@@ -32,17 +20,32 @@ viewsviews\campgroundsviews\campgrounds\edit.ejs;
       - [x] usando o ?_method=PUT
       - [x] mudando os placeholder por value, para carregar os dados
       - [x] inserindo em um objeto chamda campgroud[] os nomes do input
-  - [ ] criando a rota update method PUT
-    - [ ] usando findByidAndUpdate para atualizar os dados
-  - [ ] Inserindo link para edit
+  - [x] criando a rota update method PUT
+    - [x] usando findByidAndUpdate para atualizar os dados
+  - [x] Inserindo link para edit
   -
-  - [ ] Fix \$set problme
+  - [x] Fix \$set problme
 ## 354. Campground Destroy
   **Deleting Camgrounds**
-    - [ ] Criando a rota delete
-      - [ ] Usando o mentodo do mongoose findByIDAndRemove para deletar
+    - [x] Criando a rota delete
+      - [x] Usando o mentodo do mongoose findByIDAndRemove para deletar
 	  - Obs: tiveque usar o delete, porque é deprecado o Remo
-    - [ ] Criando um form com action method delete abaixo do edit
-  **Estilizando o botão delete **
-  	- [ ] inserindo um id no form- delete-form
-	- [ ] 
+    - [x] Criando um form com action method delete abaixo do edit
+  **Estilizando o botão delete**
+  	- [x] inserindo um id no form- delete-form
+## 356. Campground Authorization Part 1
+  **Authorization**
+  - Autorização é assegurar o que determinado usuário tem acesso,
+  - Começando pela rota edit
+    - Verificar se o usuário está logado
+      - req.isAuthenticated()
+      - Se esse usuário é dono do camp
+    - se não redireciona
+    - obs:foundCampground.author.id === req.user._id
+      - foundCampground.author.id.equals(req.user._id)
+  - criando a função checkCampgroundOwnership para ummiddleware e ser reutilizado nas outras rotas
+  - 
+
+
+
+
