@@ -49,20 +49,21 @@ router.get("/:comment_id/edit", function(req, res) {
     if (err) {
       res.redirect("back");
     } else {
-             // Como o req.params.id se refere ao campground, então podemos
-             // dar uma nome e enviar para o template ao renderiza-lo
-             res.render("comments/edit", {
-               campground_id: req.params.id,
-               comment: foundComment
-             });
-           }
+      // Como o req.params.id se refere ao campground, então podemos
+      // dar uma nome e enviar para o template ao renderiza-lo
+      res.render("comments/edit", {
+        campground_id: req.params.id,
+        comment: foundComment
+      });
+    }
   });
 });
 // Comment update route
+
 /* Ficará parecido com o put do campgrounds,
  porém alguns dados são diferentes, 
  como o array, o id do params e do doby*/
-   
+
 router.put("/:comment_id/", (req, res) => {
   //esse comment_id é o mesmo da rota escrito acima ,
   Comment.findByIdAndUpdate(
@@ -72,11 +73,22 @@ router.put("/:comment_id/", (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        // lembrar que esse req.params.id se refere-se ao camp        
+        // lembrar que esse req.params.id se refere-se ao camp
         res.redirect("/campgrounds/" + req.params.id);
       }
     }
   );
+});
+
+// Destroy route
+router.delete("/:comment_id/", (req, res) => {
+  Comment.findByIdAndDelete(req.params.comment_id, err => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/campgrounds/" + req.params.id);
+    }
+  });
 });
 //middleware
 function isLoggedIn(req, res, next) {

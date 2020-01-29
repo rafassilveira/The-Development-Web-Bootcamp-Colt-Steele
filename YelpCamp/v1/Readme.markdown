@@ -49,7 +49,8 @@
 
 ## 358.Comment Edit and Update
 
-**Editing Comments** - Add Edit route for comments - Lembrar que a rota está com curta porque já pré-definimos no app.js - "/:comment_id/edit" - render commnets/edit - Add Edit button - show.ejs
+**Editing Comments** 
+- Add Edit route for comments - Lembrar que a rota está com curta porque já pré-definimos no app.js - "/:comment_id/edit" - render commnets/edit - Add Edit button - show.ejs
 
     - add template views/comments/edit.ejs
         - mudar o place holder por comment_text
@@ -63,4 +64,13 @@
       - Usando o metodo put,
       - Ficará parecido com o put do campgrounds, porém alguns dados são diferentes, como o array, o id do params e do doby
       -
-    -
+
+## 360. Comment Destroy
+
+**Deliting Comments**
+  - Add Destroy route
+    - 
+  - Add Delete button
+  - obs:
+    - Campground Destroy Route: /campground/:id
+    - Comment Destroy Route:    /campground/:id/comment/:comment_id

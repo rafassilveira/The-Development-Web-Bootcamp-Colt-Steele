@@ -107,10 +107,6 @@ router.delete("/:id", checkCampgroundOwnership, (req, res) => {
     res.redirect("/campgrounds");
   });
 });
-
-//comments edit
-
-
 //middleware
 function isLoggedIn(req, res, next) {
   // se o usuario estiver autenticado entao proseguirá
@@ -120,7 +116,6 @@ function isLoggedIn(req, res, next) {
   res.redirect("/login");
 }
 function checkCampgroundOwnership(req, res, next) {
-  //Verificar se o usuário está logado
   if (req.isAuthenticated()) {
     Campground.findById(req.params.id, (err, foundCampground) => {
       if (err) {
