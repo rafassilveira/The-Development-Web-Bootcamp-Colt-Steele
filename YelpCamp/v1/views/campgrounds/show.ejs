@@ -44,13 +44,17 @@
             <p><strong><%= comment.author.username %></strong></p>
             <span class="pull-right">10 days ago</span>
             <p><%= comment.text %></p>
+            <!-- currentUser, definido no app.js que deixa disponivel para
+            todos os templates o req.user,se há um usuário logado e
+          o author do comentario é igual ao id do usuario logado irá
+        mostrar os botões edit e delete -->
 			  <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-				<a href="/campgrounds/<%=campground._id %>/comments/<%=comment._id %>/edit"
-				  class="btn btn-xs btn-warning">Edit</a>
-				<form class="delete-form"
-				  action="/campgrounds/<%=campground._id %>/comments/<%=comment._id %>?_method=DELETE" 							method="POST">
-				  <button class="btn btn-xs btn-danger">delete</button>
-				</form>
+          <a href="/campgrounds/<%=campground._id %>/comments/<%=comment._id %>/edit"
+            class="btn btn-xs btn-warning">Edit</a>
+          <form class="delete-form"
+            action="/campgrounds/<%=campground._id %>/comments/<%=comment._id %>?_method=DELETE" 							method="POST">
+            <button class="btn btn-xs btn-danger">delete</button>
+          </form>
 			   <% } %>
           </div>
         </div>

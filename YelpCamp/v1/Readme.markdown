@@ -69,8 +69,30 @@
 
 **Deliting Comments**
   - Add Destroy route
-    - 
+    - Criando um rota delete
+      - deletando pelo id do comentadio
   - Add Delete button
   - obs:
     - Campground Destroy Route: /campground/:id
     - Comment Destroy Route:    /campground/:id/comment/:comment_id
+
+## 361. Comment Authorization
+**Authorization Part 2: Comments**
+  - User can only edit and delete his/her comments
+  - Hide/Show edit and delete buttons
+  - Usando o midleware como referência
+
+## 362. Refactoring Middleware
+**Refactoring Middleware**
+  - Criando uma pasta na raiz middlaware
+    - criando um arquivo index.js
+      - index.js porque por padrão o express já entende que é o arquivo padrão
+    - criar um objeto onde ficaram os middlewares middlewareObj={}
+    - exportar o objeto
+    - Importar os os middlewares nos arquivos em que vao ser usados
+      - Colocar o caminho correto
+    - Importar os models de campgrounds e comments
+  - 
+
+
+

@@ -55,6 +55,7 @@ passport.deserializeUser(User.deserializeUser());
 // middleware para deixar disponiel o currentUser em todas as rotas
 
 app.use((req, res, next) => {
+  // locals é método do Passport
   // Armazena na varipavel currntUser o req.user
   //  dá acesso em todos os templates
   res.locals.currentUser = req.user;

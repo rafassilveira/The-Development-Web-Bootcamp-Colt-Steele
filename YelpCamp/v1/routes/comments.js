@@ -3,9 +3,10 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const Campground = require("../models/campground");
 const Comment = require("../models/comment");
+const middleware = require("../middleware");
 
 //Comments New
-router.get("/new", isLoggedIn, (req, res) => {
+router.get("/new", middleware.isLoggedIn, (req, res) => {
   Campground.findById(req.params.id, (err, foundCampground) => {
     if (err) {
       console.log(err);
@@ -18,7 +19,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 // Comments Create
 // add isLoggedI tbm na post para que o usuario não tenha
 // acesso ao formulario dos comentários
-router.post("/", isLoggedIn, (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
       console.log(err);
@@ -43,7 +44,10 @@ router.post("/", isLoggedIn, (req, res) => {
   });
 });
 // Comment edit route
-router.get("/:comment_id/edit", checkCommentdOwnership, function(req, res) {
+router.get("/:comment_id/edit", middleware.checkCommentdOwnership, function(
+  req,
+  res
+) {
   Comment.findById(req.params.comment_id, (err, foundComment) => {
     console.log(foundComment);
     if (err) {
@@ -64,7 +68,7 @@ router.get("/:comment_id/edit", checkCommentdOwnership, function(req, res) {
  porém alguns dados são diferentes, 
  como o array, o id do params e do doby*/
 
-router.put("/:comment_id/", checkCommentdOwnership, (req, res) => {
+router.put("/:comment_id/", middleware.checkCommentdOwnership, (req, res) => {
   //esse comment_id é o mesmo da rota escrito acima ,
   Comment.findByIdAndUpdate(
     req.params.comment_id,
@@ -81,44 +85,18 @@ router.put("/:comment_id/", checkCommentdOwnership, (req, res) => {
 });
 
 // Destroy route
-router.delete("/:comment_id/", checkCommentdOwnership, (req, res) => {
-  Comment.findByIdAndDelete(req.params.comment_id, err => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect("/campgrounds/" + req.params.id);
-    }
-  });
-});
-//middleware
-function isLoggedIn(req, res, next) {
-  // se o usuario estiver autenticado entao proseguirá
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
-
-function checkCommentdOwnership(req, res, next) {
-  if (req.isAuthenticated()) {
-    Comment.findById(req.params.comment_id, (err, foundComment) => {
+router.delete(
+  "/:comment_id/",
+  middleware.checkCommentdOwnership,
+  (req, res) => {
+    Comment.findByIdAndDelete(req.params.comment_id, err => {
       if (err) {
-        res.redirect("back");
+        console.log(err);
       } else {
-        //foundCampground.author.id.equals é um objeto
-        // req.user.id é uma string, por isso nao podemos somente ===
-        // temos que usar um metodo do mongoose para verificar se são iguais
-        if (foundComment.author.id.equals(req.user._id)) {
-          next();
-        } else {
-          res.redirect("back");
-        }
+        res.redirect("/campgrounds/" + req.params.id);
       }
     });
-  } else {
-    res.redirect("back");
   }
-}
-
+);
 
 module.exports = router;
