@@ -44,21 +44,39 @@ router.post("/", isLoggedIn, (req, res) => {
 });
 // Comment edit route
 router.get("/:comment_id/edit", function(req, res) {
-  Comment.findById(req.params.comment_id, (err, foundComment)=> {
+  Comment.findById(req.params.comment_id, (err, foundComment) => {
     console.log(foundComment);
     if (err) {
       res.redirect("back");
     } else {
-      res.render("comments/edit", {
-        campground_id: req.params.id,
-        comment: foundComment
-      });
-    }
+             // Como o req.params.id se refere ao campground, então podemos
+             // dar uma nome e enviar para o template ao renderiza-lo
+             res.render("comments/edit", {
+               campground_id: req.params.id,
+               comment: foundComment
+             });
+           }
   });
 });
 // Comment update route
-router.put("/:comment_id/edit", (req, res) => {
-  res.send("teste");
+/* Ficará parecido com o put do campgrounds,
+ porém alguns dados são diferentes, 
+ como o array, o id do params e do doby*/
+   
+router.put("/:comment_id/", (req, res) => {
+  //esse comment_id é o mesmo da rota escrito acima ,
+  Comment.findByIdAndUpdate(
+    req.params.comment_id,
+    req.body.comment,
+    (err, commentUpdated) => {
+      if (err) {
+        console.log(err);
+      } else {
+        // lembrar que esse req.params.id se refere-se ao camp        
+        res.redirect("/campgrounds/" + req.params.id);
+      }
+    }
+  );
 });
 //middleware
 function isLoggedIn(req, res, next) {
