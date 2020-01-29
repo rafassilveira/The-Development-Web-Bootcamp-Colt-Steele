@@ -1140,6 +1140,11 @@ node-localstorage@^0.6.0:
   resolved "https://registry.yarnpkg.com/node-localstorage/-/node-localstorage-0.6.0.tgz#45a0601c6932dfde6644a23361f1be173c75d3af"
   integrity sha1-RaBgHGky395mRKIzYfG+Fzx1068=
 
+nodemo@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/nodemo/-/nodemo-1.0.0.tgz#1e7242ff21d43e5a14b41a15cc724f6e396893f2"
+  integrity sha1-HnJC/yHUPloUtBoVzHJPbjlok/I=
+
 nodemon@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-2.0.2.tgz#9c7efeaaf9b8259295a97e5d4585ba8f0cbe50b0"

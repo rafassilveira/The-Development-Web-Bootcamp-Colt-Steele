@@ -71,7 +71,15 @@ router.delete("/:id", checkCampgroundOwnership, (req, res) => {
       - incluir na action o /comments/ comments id 
         - ?_method=PUT
         - mudar o place holder por comment_text
+      - Na action do form  não precisamos do objeto campground inteiro, apens do id, para isso vamos simplificar a forma que enviamos o id para esse template, para ter acesso apenas no no id campground
+      - Como o req.params.id se refere ao campground, então podemos dar uma nome e enviar para o template ao renderiza-lo
+      - {campgroud_id:req.params.id}
+      - Usando o findById em Comment, sobre req.params.comment_id para pegar o id
+      - 
+
+
     - Add Update route
+    - 
     - 
 
 

@@ -42,10 +42,24 @@ router.post("/", isLoggedIn, (req, res) => {
     }
   });
 });
-
-router.get('/:comment_id/edit',(req,res)=>{
-	res.render('comments/edit')	
-})
+// Comment edit route
+router.get("/:comment_id/edit", function(req, res) {
+  Comment.findById(req.params.comment_id, (err, foundComment)=> {
+    console.log(foundComment);
+    if (err) {
+      res.redirect("back");
+    } else {
+      res.render("comments/edit", {
+        campground_id: req.params.id,
+        comment: foundComment
+      });
+    }
+  });
+});
+// Comment update route
+router.put("/:comment_id/edit", (req, res) => {
+  res.send("teste");
+});
 //middleware
 function isLoggedIn(req, res, next) {
   // se o usuario estiver autenticado entao proseguirá
