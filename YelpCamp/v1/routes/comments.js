@@ -43,7 +43,7 @@ router.post("/", isLoggedIn, (req, res) => {
   });
 });
 // Comment edit route
-router.get("/:comment_id/edit", function(req, res) {
+router.get("/:comment_id/edit", checkCommentdOwnership, function(req, res) {
   Comment.findById(req.params.comment_id, (err, foundComment) => {
     console.log(foundComment);
     if (err) {
@@ -64,7 +64,7 @@ router.get("/:comment_id/edit", function(req, res) {
  porém alguns dados são diferentes, 
  como o array, o id do params e do doby*/
 
-router.put("/:comment_id/", (req, res) => {
+router.put("/:comment_id/", checkCommentdOwnership, (req, res) => {
   //esse comment_id é o mesmo da rota escrito acima ,
   Comment.findByIdAndUpdate(
     req.params.comment_id,
@@ -81,7 +81,7 @@ router.put("/:comment_id/", (req, res) => {
 });
 
 // Destroy route
-router.delete("/:comment_id/", (req, res) => {
+router.delete("/:comment_id/", checkCommentdOwnership, (req, res) => {
   Comment.findByIdAndDelete(req.params.comment_id, err => {
     if (err) {
       console.log(err);
@@ -98,5 +98,27 @@ function isLoggedIn(req, res, next) {
   }
   res.redirect("/login");
 }
+
+function checkCommentdOwnership(req, res, next) {
+  if (req.isAuthenticated()) {
+    Comment.findById(req.params.comment_id, (err, foundComment) => {
+      if (err) {
+        res.redirect("back");
+      } else {
+        //foundCampground.author.id.equals é um objeto
+        // req.user.id é uma string, por isso nao podemos somente ===
+        // temos que usar um metodo do mongoose para verificar se são iguais
+        if (foundComment.author.id.equals(req.user._id)) {
+          next();
+        } else {
+          res.redirect("back");
+        }
+      }
+    });
+  } else {
+    res.redirect("back");
+  }
+}
+
 
 module.exports = router;
