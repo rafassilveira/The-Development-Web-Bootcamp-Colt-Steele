@@ -80,6 +80,7 @@ router.put("/:comment_id/", middleware.checkCommentdOwnership, (req, res) => {
         console.log(err);
       } else {
         // lembrar que esse req.params.id se refere-se ao camp
+		  req.flash('success',"Comment edited")
         res.redirect("/campgrounds/" + req.params.id);
       }
     }
