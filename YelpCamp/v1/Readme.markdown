@@ -112,8 +112,11 @@
     - mudando os nomes da variavel do flash
       - criando uma para error e outra para sucess
       - criando if para mostrar apenas uma flash
-      - 
 
+  ## 366. Flash Messages: Helpful Errors
+
+    - colcando flash message nos middleware
+    - 
 
 
 

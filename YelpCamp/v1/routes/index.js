@@ -19,10 +19,11 @@ router.post("/register", (req, res) => {
   //resgister recebe 2 parametros, segundo é a senha que será gerado o hash
   User.register(newUser, req.body.password, (err, user) => {
     if (err) {
-      console.log(err);
+      req.flash("error", err.message);
       return res.render("register");
     }
     passport.authenticate("local")(req, res, () => {
+      req.flash("success", "Welcome to YelpCamp" + user.username);
       res.redirect("campgrounds");
     });
   });
@@ -30,7 +31,6 @@ router.post("/register", (req, res) => {
 
 //show login form
 router.get("/login", (req, res) => {
-  
   res.render("login");
 });
 
@@ -48,7 +48,7 @@ router.post(
 
 router.get("/logout", (req, res) => {
   req.logOut();
-  req.flash("success", "VOCÊ DESLOGOU ");
+  req.flash("success", "You Logout ");
   res.redirect("/campgrounds");
 });
 

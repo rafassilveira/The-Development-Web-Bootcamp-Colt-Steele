@@ -16,11 +16,13 @@ const middlewareObj = {};
         if (foundComment.author.id.equals(req.user._id)) {
           next();
         } else {
+          req.flash("error", "Tou don't havepermissionto do that");
           res.redirect("back");
         }
       }
     });
   } else {
+    req.flash("error", "You needto be logged in to do that");
     res.redirect("back");
   }
 }),
@@ -28,6 +30,7 @@ const middlewareObj = {};
     if (req.isAuthenticated()) {
       Campground.findById(req.params.id, (err, foundCampground) => {
         if (err) {
+          req.flash("error", "Campground not found");
           res.redirect("back");
         } else {
           //foundCampground.author.id.equals é um objeto
@@ -36,6 +39,7 @@ const middlewareObj = {};
           if (foundCampground.author.id.equals(req.user._id)) {
             next();
           } else {
+            req.flash("error", "You don't permission to do that");
             res.redirect("back");
           }
         }
