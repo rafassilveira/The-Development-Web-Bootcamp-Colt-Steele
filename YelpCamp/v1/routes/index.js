@@ -30,7 +30,8 @@ router.post("/register", (req, res) => {
 
 //show login form
 router.get("/login", (req, res) => {
-  res.render("login");
+  
+  res.render("login", { error: req.flash("error") });
 });
 
 //handling login logic
@@ -47,15 +48,8 @@ router.post(
 
 router.get("/logout", (req, res) => {
   req.logOut();
+  req.flash("success", "VOCÊ DESLOGOU ");
   res.redirect("/campgrounds");
 });
 
-//middleware
-function isLoggedIn(req, res, next) {
-  // se o usuario estiver autenticado entao proseguirá
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
 module.exports = router;

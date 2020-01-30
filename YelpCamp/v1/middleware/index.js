@@ -49,6 +49,7 @@ const middlewareObj = {};
     if (req.isAuthenticated()) {
       return next();
     }
+    req.flash("error", "VOCÊ PRECISA ESTAR LOGADO ");
     res.redirect("/login");
   });
 

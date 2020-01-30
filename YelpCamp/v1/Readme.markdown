@@ -82,17 +82,38 @@
   - Hide/Show edit and delete buttons
   - Usando o midleware como referência
 
-## 362. Refactoring Middleware
-**Refactoring Middleware**
-  - Criando uma pasta na raiz middlaware
-    - criando um arquivo index.js
-      - index.js porque por padrão o express já entende que é o arquivo padrão
-    - criar um objeto onde ficaram os middlewares middlewareObj={}
-    - exportar o objeto
-    - Importar os os middlewares nos arquivos em que vao ser usados
-      - Colocar o caminho correto
-    - Importar os models de campgrounds e comments
-  - 
+# Seção 38: YelpCamp: UI Improvements
+  ## 362. Refactoring Middleware
+  **Refactoring Middleware**
+    - Criando uma pasta na raiz middlaware
+      - criando um arquivo index.js
+        - index.js porque por padrão o express já entende que é o arquivo padrão
+      - criar um objeto onde ficaram os middlewares middlewareObj={}
+      - exportar o objeto
+      - Importar os os middlewares nos arquivos em que vao ser usados
+        - Colocar o caminho correto
+      - Importar os models de campgrounds e comments
+  ## 363. Flash Messages: Installation
+    - Instalando o pacote connect-flash
+    - Require no app.js como flash, antes do passport
+      - app.use(flash())  
+    - Essa biblioteca irá nos ajudar a trabalhar menssagens para o usuário, pode ser menssagem de sucesso ou de error
+    - Basicamente vamos usar a seguinte sintaxe
+      - req.flash("key","mensagem")
+        - Key será a chave para acessarmos a flash da referida menssagem
+        - é importante configurar o req.flash antes de redirecionar para o template ou route
+
+  ## 365.Flash Messages: Adding Bootstrap
+    - Invés de colocarmos a variável message em todas as possiveis paginas, vamos coloca-la no nosso final head
+    - Vamos usar o res.locals.message=req.flash('error'), para deixar essa mensagem disponivel para todas as nossas rotas
+      - Assim como no currentUser
+    - Criando um nova mesagem depois do logout
+    - add bootstrap sucess
+    - mudando os nomes da variavel do flash
+      - criando uma para error e outra para sucess
+      - criando if para mostrar apenas uma flash
+      - 
+
 
 
 

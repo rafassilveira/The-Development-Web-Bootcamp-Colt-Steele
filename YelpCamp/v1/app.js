@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const Campground = require("./models/campground");
@@ -37,6 +38,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Dizendo para express que arquivos ejs não precisar digitar a extensão ejs
 app.set("view engine", "ejs");
 
+app.use(flash());
+
 //PASSPORT CONFIGURATION
 app.use(
   require("express-session")({
@@ -53,12 +56,13 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // middleware para deixar disponiel o currentUser em todas as rotas
-
 app.use((req, res, next) => {
   // locals é método do Passport
   // Armazena na varipavel currntUser o req.user
   //  dá acesso em todos os templates
   res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
   next();
 });
 
