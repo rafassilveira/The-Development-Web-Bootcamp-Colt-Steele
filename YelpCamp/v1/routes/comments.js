@@ -8,8 +8,9 @@ const middleware = require("../middleware");
 //Comments New
 router.get("/new", middleware.isLoggedIn, (req, res) => {
   Campground.findById(req.params.id, (err, foundCampground) => {
-    if (err) {
-      console.log(err);
+    if (err || !foundCampground) {
+      req.flash("error", "Campground not found");
+      res.redirect("back");
     } else {
       res.render("comments/new", { campground: foundCampground });
     }
@@ -46,24 +47,32 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
   });
 });
 // Comment edit route
-router.get("/:comment_id/edit", middleware.checkCommentdOwnership, function(
-  req,
-  res
-) {
-  Comment.findById(req.params.comment_id, (err, foundComment) => {
-    console.log(foundComment);
-    if (err) {
-      res.redirect("back");
-    } else {
-      // Como o req.params.id se refere ao campground, então podemos
-      // dar uma nome e enviar para o template ao renderiza-lo
-      res.render("comments/edit", {
-        campground_id: req.params.id,
-        comment: foundComment
+router.get(
+  "/:comment_id/edit",
+  middleware.checkCommentdOwnership,
+  (req, res) => {
+    // verificando se o camp existe
+    Campground.findById(req.params.id, (err, foundCampground) => {
+      if (err || !foundCampground) {
+        req.flash("error", "No campground found");
+        return res.redirect("back");
+      }
+      Comment.findById(req.params.comment_id, (err, foundComment) => {
+        console.log(foundComment);
+        if (err) {
+          res.redirect("back");
+        } else {
+          // Como o req.params.id se refere ao campground, então podemos
+          // dar uma nome e enviar para o template ao renderiza-lo
+          res.render("comments/edit", {
+            campground_id: req.params.id,
+            comment: foundComment
+          });
+        }
       });
-    }
-  });
-});
+    });
+  }
+);
 // Comment update route
 
 /* Ficará parecido com o put do campgrounds,
@@ -80,7 +89,7 @@ router.put("/:comment_id/", middleware.checkCommentdOwnership, (req, res) => {
         console.log(err);
       } else {
         // lembrar que esse req.params.id se refere-se ao camp
-		  req.flash('success',"Comment edited")
+        req.flash("success", "Comment edited");
         res.redirect("/campgrounds/" + req.params.id);
       }
     }

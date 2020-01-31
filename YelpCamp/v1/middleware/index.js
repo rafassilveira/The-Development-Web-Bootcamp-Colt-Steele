@@ -7,7 +7,8 @@ const middlewareObj = {};
   if (req.isAuthenticated()) {
     // Pegando o id pelo params, não esquecer que a rota está encurtada no app.js
     Comment.findById(req.params.comment_id, (err, foundComment) => {
-      if (err) {
+      if (err || !foundComment) {
+        req.flash("error", "Comment not found");
         res.redirect("back");
       } else {
         // depois que achou o id do comment no BD verificar se
@@ -16,7 +17,7 @@ const middlewareObj = {};
         if (foundComment.author.id.equals(req.user._id)) {
           next();
         } else {
-          req.flash("error", "Tou don't havepermissionto do that");
+          req.flash("error", "You don't have permission to do that");
           res.redirect("back");
         }
       }
@@ -29,7 +30,9 @@ const middlewareObj = {};
   (middlewareObj.checkCampgroundOwnership = function(req, res, next) {
     if (req.isAuthenticated()) {
       Campground.findById(req.params.id, (err, foundCampground) => {
-        if (err) {
+        // usando or para não deixar quebrar a aplicação
+        //  se existir um erro ou não tiver um campground valido
+        if (err || !foundCampground) {
           req.flash("error", "Campground not found");
           res.redirect("back");
         } else {
