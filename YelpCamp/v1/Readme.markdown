@@ -120,7 +120,11 @@
   ## 367 . Erro Handling erro in production
     - Inserindo um operador OR e negação de comentários e campgrounds para verificar se existem
   ## 368 .Landing Page Refactor
-    - 
+  obs: Vamos criar imagens em fullscreen no background, com transições a cada 10s
+    - Edit the landing.ejs 
+      - add bootstrap
+      - new stylesheets, landing.css
+      - 
 
 
 
