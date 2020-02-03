@@ -19,6 +19,7 @@ router.get("/", (req, res) => {
 router.post("/", middleware.isLoggedIn, (req, res) => {
   // pegando o name do formulario e armazenando na variavel name
   var name = req.body.name;
+  const price = req.body.price;
   // pegando a url da imagem do formulario e armazenando na variavel imagem
   var image = req.body.image;
   var desc = req.body.description;
@@ -31,6 +32,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
   // armazenando em uma nova variavel como objeto contendo o nome ,imagem e desc anteriormente armazenado
   var newCampground = {
     name: name,
+    price: price,
     image: image,
     description: desc,
     author: author

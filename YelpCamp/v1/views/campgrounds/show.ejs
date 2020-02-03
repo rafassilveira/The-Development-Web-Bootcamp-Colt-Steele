@@ -14,7 +14,7 @@
       <div class="thumbnail">
         <img src="<%= campground.image%>" alt="" class="img-responsive">
         <div class="caption-full">
-          <h4 class="pull-right">$9,00/night</h4>
+          <h4 class="pull-right">$<%=campground.price %> night</h4>
           <h4><a href="http://"><%= campground.name %></a></h4>
           <p><%= campground.description %></p>
           <p>
@@ -48,14 +48,14 @@
             todos os templates o req.user,se há um usuário logado e
           o author do comentario é igual ao id do usuario logado irá
         mostrar os botões edit e delete -->
-			  <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-          <a href="/campgrounds/<%=campground._id %>/comments/<%=comment._id %>/edit"
-            class="btn btn-xs btn-warning">Edit</a>
-          <form class="delete-form"
-            action="/campgrounds/<%=campground._id %>/comments/<%=comment._id %>?_method=DELETE" 							method="POST">
-            <button class="btn btn-xs btn-danger">delete</button>
-          </form>
-			   <% } %>
+            <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+            <a href="/campgrounds/<%=campground._id %>/comments/<%=comment._id %>/edit"
+              class="btn btn-xs btn-warning">Edit</a>
+            <form class="delete-form"
+              action="/campgrounds/<%=campground._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+              <button class="btn btn-xs btn-danger">delete</button>
+            </form>
+            <% } %>
           </div>
         </div>
         <% });%>
