@@ -2,22 +2,22 @@
 <!-- Centralizando -->
 <h1 class="text-center">Add a new comment to <%= campground.name %></h1>
 
-  <div class="row">
-    <div style="width: 30%; margin: 25px auto;">
-      <!-- enviando os dados da form para /campground-->
-      <form action="/campgrounds/<%= campground._id%>/comments" method="POST">
-        <div class="form-group">
-          <input class="form-control" type="text" name="comment[text]" placeholder="text" />
-        </div>
-               
-        <div class="form-group">
-          <button class="btn btn-primary btn-lg btn-default btn-block">
-            Submit
-          </button>
-        </div>
-      </form>
-      <a class="btn" href="/campgrounds">Go back</a>
-    </div>
-  </div>
+<div class="row">
+	<div style="width: 30%; margin: 25px auto;">
+		<!-- enviando os dados da form para /campground-->
+		<form action="/campgrounds/<%= campground._id%>/comments" method="POST">
+			<div class="form-group">
+				<input class="form-control" type="text" name="comment[text]" placeholder="text" />
+			</div>
+
+			<div class="form-group">
+				<button class="btn btn-primary btn-lg btn-default btn-block">
+					Submit
+				</button>
+			</div>
+		</form>
+		<a class="btn" href="/campgrounds">Go back</a>
+	</div>
+</div>
 
 <%- include('../partials/footer')%>

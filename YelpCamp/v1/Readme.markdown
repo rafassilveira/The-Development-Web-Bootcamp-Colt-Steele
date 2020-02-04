@@ -152,7 +152,15 @@
       - editar show.ejs
       - inserir a variavel price no routes posr campground
   ## Login and Sign Up
-  
+    - Use Bootstrap to style the login & sign up views
+      - 
+    - Update the nav-bar menu
+      - Convert .container-fluid to regular .container     
+      - Add conditional active class to menu list items
+      - Add collapsable hamburger menu
+      - Make site responsive for mobile
+    - Fix registration flash message bug
+
 
 
 
