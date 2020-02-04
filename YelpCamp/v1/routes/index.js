@@ -18,14 +18,14 @@ router.post("/register", (req, res) => {
   let newUser = new User({ username: req.body.username });
   //resgister recebe 2 parametros, segundo é a senha que será gerado o hash
   User.register(newUser, req.body.password, (err, user) => {
-    if (err) {
-      console.log(err);
-      return res.render("register", { error: err.message });
-    }
-    passport.authenticate("local")(req, res, () => {
-      req.flash("success", "Welcome to YelpCamp");
-      res.redirect("/campgrounds");
-    });
+	if (err) {
+	  console.log(err);
+	  return res.render("register", { error: err.message });
+	}
+	passport.authenticate("local")(req, res, () => {
+	  req.flash("success", "Welcome to YelpCamp");
+	  res.redirect("/campgrounds");
+	});
   });
 });
 
@@ -37,8 +37,8 @@ router.get("/login", function(req, res) {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/campgrounds",
-    failureRedirect: "/login"
+	successRedirect: "/campgrounds",
+	failureRedirect: "/login"
   }),
   function(req, res) {}
 );

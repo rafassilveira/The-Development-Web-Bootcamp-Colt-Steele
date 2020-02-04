@@ -4,6 +4,7 @@ const Campground = require("../models/campground");
 const middleware = require("../middleware");
 
 
+
 //INDEX - show all campgrounds
 router.get("/", function(req, res) {
   // Get all campgrounds from DB
@@ -31,14 +32,15 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
     id: req.user._id,
     username: req.user.username
   };
-
+const date = moment("20111031", "YYYYMMDD").fromNow();
   // armazenando em uma nova variavel como objeto contendo o nome ,imagem e desc anteriormente armazenado
   var newCampground = {
     name: name,
     price: price,
     image: image,
     description: desc,
-    author: author
+    author: author,
+	
   };
   // Create a new campground adn save to DB
   Campground.create(newCampground, (err, newcreated) => {
@@ -74,6 +76,7 @@ router.get("/:id", (req, res) => {
         console.log(foundCampground);
 
         res.render("campgrounds/show", { campground: foundCampground });
+		  
       }
     });
 });

@@ -35,10 +35,11 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
           // armazenando o id do usuario logado no models do comments author
           comment.author.id = req.user._id;
           comment.author.username = req.user.username;
-          //salvando no banco de dados
+		  //salvando no banco de dados
           comment.save();
           campground.comments.push(comment);
           campground.save();
+		 
           req.flash("success", "Successfully added comment");
           res.redirect("/campgrounds/" + campground._id);
         }

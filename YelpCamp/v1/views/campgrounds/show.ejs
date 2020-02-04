@@ -18,9 +18,12 @@
           <h4><a href="http://"><%= campground.name %></a></h4>
           <p><%= campground.description %></p>
           <p>
-            <em>Subimitted by <%=campground.author.username%></em>
-
+            <em>Subimitted by <%=campground.author.username%>,<%= moment(campground.createdAt).fromNow()%></em>
           </p>
+				  
+
+          
+			
           <!-- Se exite um usuário e se ele é igual os ids são iguais -->
           <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
 
@@ -42,7 +45,7 @@
           <div class="col-md-12">
             <!-- add username vindo post-->
             <p><strong><%= comment.author.username %></strong></p>
-            <span class="pull-right">10 days ago</span>
+            <span class="pull-right"><%=moment(comment.createdAt).fromNow()%></span>
             <p><%= comment.text %></p>
             <!-- currentUser, definido no app.js que deixa disponivel para
             todos os templates o req.user,se há um usuário logado e
