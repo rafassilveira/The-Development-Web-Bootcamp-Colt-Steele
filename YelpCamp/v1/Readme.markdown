@@ -151,7 +151,8 @@
       - Não esquecer de trazer o campground[price] no edit
       - editar show.ejs
       - inserir a variavel price no routes posr campground
-
+  ## Login and Sign Up
+  
 
 
 

@@ -9,8 +9,8 @@ router.get("/", (req, res) => {
 });
 
 // show register form
-router.get("/register", (req, res) => {
-  res.render("register");
+router.get("/register", function(req, res) {
+  res.render("register", { page: "register" });
 });
 
 //handling sign up logic
@@ -19,8 +19,8 @@ router.post("/register", (req, res) => {
   //resgister recebe 2 parametros, segundo é a senha que será gerado o hash
   User.register(newUser, req.body.password, (err, user) => {
     if (err) {
-      req.flash("error", err.message);
-      return res.render("register");
+      console.log(err);
+      return res.render("register", { error: err.message });
     }
     passport.authenticate("local")(req, res, () => {
       req.flash("success", "Welcome to YelpCamp");
@@ -30,14 +30,13 @@ router.post("/register", (req, res) => {
 });
 
 //show login form
-router.get("/login", (req, res) => {
-  res.render("login");
+router.get("/login", function(req, res) {
+  res.render("login", { page: "login" });
 });
-
 //handling login logic
 router.post(
   "/login",
-  passport.authenticate("local", {    
+  passport.authenticate("local", {
     successRedirect: "/campgrounds",
     failureRedirect: "/login"
   }),

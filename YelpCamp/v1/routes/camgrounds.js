@@ -3,18 +3,21 @@ const router = express.Router();
 const Campground = require("../models/campground");
 const middleware = require("../middleware");
 
-// index - show all the campground
-router.get("/", (req, res) => {
-  //mostrando todos os campgrounds
-  Campground.find({}, (err, allCampgrounds) => {
+
+//INDEX - show all campgrounds
+router.get("/", function(req, res) {
+  // Get all campgrounds from DB
+  Campground.find({}, function(err, allCampgrounds) {
     if (err) {
       console.log(err);
     } else {
-      res.render("campgrounds/index", { campgrounds: allCampgrounds });
+      res.render("campgrounds/index", {
+        campgrounds: allCampgrounds,
+        page: "campgrounds"
+      });
     }
   });
 });
-
 // Create - add to campgrpund to db
 router.post("/", middleware.isLoggedIn, (req, res) => {
   // pegando o name do formulario e armazenando na variavel name
