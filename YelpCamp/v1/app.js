@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -55,7 +56,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.locals.moment = require('moment');
+app.locals.moment = require("moment");
 
 // middleware para deixar disponiel o currentUser em todas as rotas
 app.use((req, res, next) => {

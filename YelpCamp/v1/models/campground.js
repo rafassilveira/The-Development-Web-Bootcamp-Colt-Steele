@@ -1,11 +1,13 @@
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
-const campgroundSchema = new mongoose.Schema({
+var campgroundSchema = new mongoose.Schema({
   name: String,
   price: String,
   image: String,
   description: String,
-  createdAt:{type:Date,default:Date.now},	
+  location: String,
+  lat: Number,
+  lng: Number,
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -15,13 +17,10 @@ const campgroundSchema = new mongoose.Schema({
   },
   comments: [
     {
-      //associando o id do comments com o do campground
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment"
     }
   ]
 });
 
-const Campground = mongoose.model("Campground", campgroundSchema);
-
-module.exports = Campground;
+module.exports = mongoose.model("Campground", campgroundSchema);
