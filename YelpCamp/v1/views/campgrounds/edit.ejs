@@ -2,36 +2,35 @@
 <!-- Centralizando -->
 <h1 class="text-center"> Edit <%= campground.name %> </h1>
 
-  <div class="row">
-    <div style="width: 30%; margin: 25px auto;">
-      <!-- enviando os dados da form para /campground-->
-      <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
-        <div class="form-group">
-          <input class="form-control" type="text" name="campground[name]" value="<%= campground.name %>" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="number" name="campground[price]" min="0.01" step="0.01"
-            value="<% campground.price %> " />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="campground[image]" value="<%= campground.image %>" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="campground[description]"
-            value="<%= campground.description %>" />
-        </div>
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input class="form-control" type="text" name="location" id="location" value="<%= campground.location %>">
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-lg btn-default btn-block">
-            Submit
-          </button>
-        </div>
-      </form>
-      <a class="btn" href="/campgrounds">Go back</a>
-    </div>
+<div class="row">
+  <div style="width: 30%; margin: 25px auto;">
+    <!-- enviando os dados da form para /campground-->
+    <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
+      <div class="form-group">
+        <input class="form-control" type="text" name="campground[name]" value="<%= campground.name %>" />
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="campground[price]" value="<%= campground.price %>" />
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="campground[image]" value="<%= campground.image %>" />
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" name="campground[description]" cols="30"
+          rows="10"><%= campground.description %></textarea>
+      </div>
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input class="form-control" type="text" name="location" id="location" value="<%= campground.location %>">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-lg btn-default btn-block">
+          Submit
+        </button>
+      </div>
+    </form>
+    <a class="btn" href="/campgrounds">Go back</a>
   </div>
+</div>
 
 <%- include('../partials/footer')%>

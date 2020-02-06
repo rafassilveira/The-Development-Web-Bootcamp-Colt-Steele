@@ -39,14 +39,19 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
     id: req.user._id,
     username: req.user.username
   };
+  //Usando callback pra trazer todo o endereço enctrado pelo gogle e 
+  // colocando no data
   geocoder.geocode(req.body.location, function(err, data) {
+    // se existir um erro ou não existir nenhum dado de endereço irá voltar
     if (err || !data.length) {
       req.flash("error", "Invalid address");
       return res.redirect("back");
     }
+    // armazenando a latitude,longitude e endero completo
     var lat = data[0].latitude;
     var lng = data[0].longitude;
-    var location = data[0].formattedAddress;
+    var location = data[0].formattedAddress; 
+
     var newCampground = {
       name: name,
       image: image,
@@ -109,6 +114,9 @@ router.put("/:id", middleware.checkCampgroundOwnership, function(req, res) {
       req.flash("error", "Invalid address");
       return res.redirect("back");
     }
+    // usando req.body.campground. poque na rota do edit estamos recebendo
+    // o campground encontrado que esta n bando de dados com as informações 
+    // já salvas
     req.body.campground.lat = data[0].latitude;
     req.body.campground.lng = data[0].longitude;
     req.body.campground.location = data[0].formattedAddress;
@@ -127,6 +135,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, function(req, res) {
     });
   });
 });
+
 //Destroy route
 router.delete("/:id", middleware.checkCampgroundOwnership, (req, res) => {
   Campground.findByIdAndDelete(req.params.id, err => {

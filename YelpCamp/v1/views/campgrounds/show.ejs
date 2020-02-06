@@ -68,35 +68,44 @@
   </div>
 <script>
   function initMap() {
-    var lat = <%= campground.lat%>;
-    var lng = <%= campground.lng%>;
+    // campground enviado pela rota show
+    // armazenado a latitude e longitude
+    var lat = <%=campground.lat%>;
+    var lng = <%=campground.lng%>;
     var center = {
       lat: lat,
       lng: lng
     };
+    //
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 14,
       center: center,
+      // false siginficar que co o scrol do mouse não dá pra dar zoom
       scrollwheel: false
     });
+    
     var contentString = 
     `
-      <strong><%= campground.name %><br />
+      <strong><%= campground.name %><br/>
       <%= campground.location %></strong>
       <p><%= campground.description %></p>
     `
     var infowindow = new google.maps.InfoWindow({
+      // informações ao clicar no marker
       content: contentString
     });
     var marker = new google.maps.Marker({
+      // deixando o marker centralizado
       position: center,
       map: map
     });
+    // ao clicar no marker irá aparecr as informações do infowidow
     marker.addListener('click', function () {
       infowindow.open(map, marker);
     });
   }
 </script>
+<!-- colocando a primeira chave para chamar a api do google -->
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4xXBVwyi-XHl5ScbKXXfu1wP6JQn7cWc&callback=initMap"></script>
 
