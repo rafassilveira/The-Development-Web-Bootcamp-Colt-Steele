@@ -181,6 +181,20 @@
 
 obs: remove file from de cache
 
+# Seção 40: Deploying
+  ## Usando o heroku
+    - Cadastrar no heroku.com
+    - Instalar na maquina
+      - Ou usar direto no goorm
+    - usar o comando : heroku login -i
+    - entrar com email e senha cadastrados
+    - Verificar se a aplicação está no github
+    - heroku create
+    - git push heroku master
+    - heroku logs
+    - heroku dashboard
+    - Criar uma copia da ultima forma
+    - 
 
 
   
